@@ -1,10 +1,8 @@
-import {signupController} from "./auth.controller.js"
-// import {authentication,authorization} from "../../common/middleware/auth.middleware.js"
+import {signupController,loginController} from "./auth.controller.js"
 import express from "express"
-import { UserRoleEnum } from "../../common/enum/user-role.enum.js"
 import { schemaValidate } from "../../common/middleware/schema.middleware.js"
-import { signupSchema } from "./auth.valdition.js"
-// import { schemaValidate } from "../../common/middleware/valdiate.middelware.js"
+import { loginSchema, signupSchema } from "./auth.valdition.js"
 const userRouter = express.Router()
 userRouter.post("/signup",schemaValidate(signupSchema),signupController)
+userRouter.post("/login",schemaValidate(loginSchema),loginController)
 export default userRouter

@@ -21,3 +21,9 @@ body :z.object({
     changeCredintals: z.coerce.date(),
     statusAccount: z.nativeEnum(StatusAccountEnum), 
 })};
+// LOGIN
+export const loginSchema = {
+body :z.object({
+    email: z.string().email().max(100),
+    password: z.string().min(6),
+})};

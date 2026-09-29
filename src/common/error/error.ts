@@ -2,8 +2,12 @@
 class ErrorMessage {
     constructor() {}
     // SHOW EMAIL IS EXSIT
-    emailExsit():never{
+    emailExsitError():never{
         throw new Error("EMAIL IS INVALID")
+    }
+    // LOGIN ERROR 
+    loginError(){
+        throw new Error("EMAIL OR PASSWORD IS INVALID ! ")
     }
 
 }
