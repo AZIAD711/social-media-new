@@ -16,5 +16,17 @@ class UserService {
             throw ErrorMessage.userNotFoundError();
         return user;
     }
+    // DELETE PROFILE 
+    async deleteProfile(userId) {
+        const user = await userModel.findByIdAndDelete(userId);
+        if (!user)
+            throw ErrorMessage.userNotFoundError();
+        return user;
+    }
+    // GET ALL USERS PROFILE 
+    async getAllUsersProfile() {
+        const user = await userModel.find();
+        return user;
+    }
 }
 export default new UserService();

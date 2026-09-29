@@ -23,5 +23,10 @@ class UserService {
         if (!user) throw ErrorMessage.userNotFoundError();
         return user;
     }
+    // GET ALL USERS PROFILE 
+    async getAllUsersProfile(): Promise<HydratedDocument<IUser>[]> {
+        const user = await userModel.find();
+        return user;
+    }
 }
 export default new UserService()

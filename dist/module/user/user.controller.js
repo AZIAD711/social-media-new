@@ -4,7 +4,6 @@ export const getProfileController = async (request, response) => {
     try {
         const { user } = request;
         const userData = await userService.getProfile(user.id);
-        console.log("request.user =", request.user);
         return response.status(200).json({
             data: userData
         });
@@ -22,7 +21,6 @@ export const updateProfileController = async (request, response) => {
         const { user } = request;
         const data = request.body;
         const userData = await userService.updateProfile(user.id, data);
-        console.log("request.user =", request.user);
         return response.status(200).json({
             message: "User Profile Updated !",
             data: userData
@@ -30,6 +28,38 @@ export const updateProfileController = async (request, response) => {
     }
     catch (error) {
         console.log("❌ ERROR IN UPDATED PROFILE CONTROLLER : ", error);
+        return response.status(500).json({
+            errorMessage: "Internal Server Error !"
+        });
+    }
+};
+// DELETE PROFILE
+export const deleteProfileController = async (request, response) => {
+    try {
+        const { user } = request;
+        const userData = await userService.deleteProfile(user.id);
+        return response.status(200).json({
+            messsage: `Account of ${userData.firstName} is deleted `,
+            data: userData
+        });
+    }
+    catch (error) {
+        console.log("❌ ERROR IN DELETE PROFILE CONTROLLER : ", error);
+        return response.status(500).json({
+            errorMessage: "Internal Server Error !"
+        });
+    }
+};
+// GET ALL USERS
+export const getAllUsersController = async (request, response) => {
+    try {
+        const userData = await userService.getAllUsersProfile();
+        return response.status(200).json({
+            data: userData
+        });
+    }
+    catch (error) {
+        console.log("❌ ERROR IN GET ALL USERS CONTROLLER : ", error);
         return response.status(500).json({
             errorMessage: "Internal Server Error !"
         });
