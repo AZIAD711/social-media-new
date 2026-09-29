@@ -1,9 +1,12 @@
+import { Types } from "mongoose"
 import { GenderEnum } from "../enum/gender.enum.js"
 import { ProviderEnum } from "../enum/provider.enum.js"
 import { StatusAccountEnum } from "../enum/status-account.enum.js"
 import { UserRoleEnum } from "../enum/user-role.enum.js"
 
 export interface IUser {
+    // USER ID
+    _id : Types.ObjectId | string
     // FIRST NAME
     firstName: string,
 

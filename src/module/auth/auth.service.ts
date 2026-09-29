@@ -14,14 +14,14 @@ class AuthService {
     // SIGN UP 
     async signup(data: IUser): Promise<IUser> {
         const exsitEmail: HydratedDocument<IUser> | null = await userModel.findOne({ email: data.email })
-        if (exsitEmail) ErrorMessage.emailExsitError()
+        if (exsitEmail) throw ErrorMessage.emailExsitError()
         const user: HydratedDocument<IUser> = await userModel.create(data)
         return user
     }
     // LOGIN 
     async login(data: ILoginDto): Promise<ITokenReturn> {
         const user = await userModel.findOne({ email: data.email, password: data.password })
-        if (!user) ErrorMessage.loginError()
+        if (!user) throw ErrorMessage.loginError()
         const accessToken = generateToken({
             payload: {
                 _id: user?._id,
@@ -47,7 +47,7 @@ class AuthService {
     // FORGET PASSWORD 
     async forgetPassword(emailValue: string) {
         const exsitEmail: HydratedDocument<IUser> | null = await userModel.findOne({ email: emailValue })
-        if (!exsitEmail) ErrorMessage.notFoundEmailError()
+        if (!exsitEmail) throw ErrorMessage.notFoundEmailError()
         const otp = generateOTP()
         const addOtp = await setRecord(otpTemplateWtihEmail(emailValue), otp, 4 * 60)
         // const getOtp = await getRecord(otpTemplateWtihEmail(email))
@@ -61,7 +61,7 @@ class AuthService {
     // RESET PASSWORD 
     async resetPassword(data: IResetPassword): Promise<HydratedDocument<IUser>|null> {
         const exsitEmail: HydratedDocument<IUser> | null = await userModel.findOne({ email: data.email })
-        if (!exsitEmail) ErrorMessage.notFoundEmailError()
+        if (!exsitEmail) throw ErrorMessage.notFoundEmailError()
         const getOtp = await getRecord(otpTemplateWtihEmail(data.email))
         if (String(getOtp) !== String(data.otp)) ErrorMessage.invalidOtpError()
         const newPassword:HydratedDocument<IUser>|null = await userModel.findOneAndUpdate({ email: data.email }, { password: data.password }, { new: true })
