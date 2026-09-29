@@ -1,6 +1,7 @@
 import express from "express"
 import dotenv, { config } from "dotenv"
 import { databaseConnection } from "./database/mongo.db.js"
+import {redisConnection } from "./database/redis.db.js"
 import authRouter from "./module/auth/auth.routing.js"
 // import { redisConnection } from "./src/database/redis-connection.js"
 // import cors from "cors"
@@ -28,7 +29,7 @@ export const app = () => {
     // });
     dotenv.config();
     databaseConnection()
-    // redisConnection()
+    redisConnection()
     const router = express()
     // router.use("/uploads", express.static("uploads"))
     router.use(express.json())

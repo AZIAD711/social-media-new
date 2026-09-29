@@ -9,7 +9,7 @@ body :z.object({
     firstName: z.string().min(3).max(100),
     lastName: z.string().min(3).max(100),
     email: z.string().email().max(100),
-    password: z.string().min(6),
+    password: z.string().max(6),
     address: z.string(),
     gender: z.nativeEnum(GenderEnum),
     phoneNumber: z.string().length(11),
@@ -25,5 +25,10 @@ body :z.object({
 export const loginSchema = {
 body :z.object({
     email: z.string().email().max(100),
-    password: z.string().min(6),
+    password: z.string().max(6),
+})};
+// FORGET PASSWORD 
+export const forgetPasswordSchema = {
+body :z.object({
+    email: z.string().email().max(100),
 })};

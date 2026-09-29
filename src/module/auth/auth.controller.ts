@@ -34,3 +34,19 @@ export const loginController = async (request: Request, response: Response) => {
         })
     }
 };
+// FORGET PASSWORD 
+export const forgetPasswordController = async (request: Request, response: Response) => {
+    try {
+        const data = request.body.email
+
+        const result = await authService.forgetPassword(data);
+        return response.status(200).json({
+            message: "Now you recieve Otp on your email",
+        })
+    } catch (error) {
+        console.log("❌ ERROR IN FORGET PASSWORD CONTROLLER:", error);
+        response.status(500).json({
+            message: "Internal Server Error !",
+        })
+    }
+};

@@ -1,6 +1,7 @@
 import express from "express";
 import dotenv from "dotenv";
 import { databaseConnection } from "./database/mongo.db.js";
+import { redisConnection } from "./database/redis.db.js";
 import authRouter from "./module/auth/auth.routing.js";
 // import { redisConnection } from "./src/database/redis-connection.js"
 // import cors from "cors"
@@ -28,11 +29,11 @@ export const app = () => {
     // });
     dotenv.config();
     databaseConnection();
-    // redisConnection()
+    redisConnection();
     const router = express();
     // router.use("/uploads", express.static("uploads"))
     router.use(express.json());
-    router.use("auth", authRouter);
+    router.use("/auth", authRouter);
     return router;
 };
 export default app;
