@@ -50,3 +50,20 @@ export const forgetPasswordController = async (request: Request, response: Respo
         })
     }
 };
+// RESET PASSWORD 
+export const resetPasswordController = async (request: Request, response: Response) => {
+    try {
+        const data = request.body
+
+        const result = await authService.resetPassword(data);
+        return response.status(200).json({
+            message: "Password Updated !",
+            data : result
+        })
+    } catch (error) {
+        console.log("❌ ERROR IN RESET PASSWORD CONTROLLER:", error);
+        response.status(500).json({
+            message: "Internal Server Error !",
+        })
+    }
+};

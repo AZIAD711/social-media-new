@@ -2,10 +2,10 @@ import { HydratedDocument } from "mongoose";
 import { IUser } from "../../common/interface/user.interface.js";
 import userModel from "../../model/user.model.js";
 import ErrorMessage from '../../common/error/error.js'
-import { ILoginDto } from "./auth.dto.js";
+import { ILoginDto, IResetPassword } from "./auth.dto.js";
 import { ITokenReturn } from "../../common/interface/token.interface.js";
 import { generateToken } from "../../common/token/token.js";
-import { otpTemplateWtihEmail, setRecord } from "../../common/utils/redis-functions.js";
+import { otpTemplateWtihEmail, setRecord,getRecord } from "../../common/utils/redis-functions.js";
 import { generateOTP } from "../../common/utils/generate-otp.js";
 import { sendEmail } from "../../common/utils/mail.js";
 
@@ -57,6 +57,15 @@ class AuthService {
             subjectValue: "Reset Password",
             htmlValue: `<h1>Hello to social media app👋</h1><br><h2>OTP : ${otp}</h2>`
         })
+    }
+    // RESET PASSWORD 
+    async resetPassword(data: IResetPassword): Promise<HydratedDocument<IUser>|null> {
+        const exsitEmail: HydratedDocument<IUser> | null = await userModel.findOne({ email: data.email })
+        if (!exsitEmail) ErrorMessage.notFoundEmailError()
+        const getOtp = await getRecord(otpTemplateWtihEmail(data.email))
+        if (String(getOtp) !== String(data.otp)) ErrorMessage.invalidOtpError()
+        const newPassword:HydratedDocument<IUser>|null = await userModel.findOneAndUpdate({ email: data.email }, { password: data.password }, { new: true })
+        return newPassword
     }
 }
 export default new AuthService()

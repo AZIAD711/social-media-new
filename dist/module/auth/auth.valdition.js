@@ -35,3 +35,15 @@ export const forgetPasswordSchema = {
         email: z.string().email().max(100),
     })
 };
+// RESET PASSWORD 
+export const resetPasswordSchema = {
+    body: z.object({
+        email: z.string().email().max(100),
+        password: z.string().max(6),
+        confirmPassword: z.string().max(6),
+        otp: z.string().max(4),
+    }).refine((data) => data.password === data.confirmPassword, {
+        message: "Passwords do not match",
+        path: ["confirmPassword"],
+    }),
+};

@@ -13,5 +13,9 @@ class ErrorMessage {
     notFoundEmailError() {
         throw new Error("EMAIL NOT FOUND ! ");
     }
+    // INVALID OTP
+    invalidOtpError() {
+        throw new Error("INVALID OTP !");
+    }
 }
 export default new ErrorMessage();
