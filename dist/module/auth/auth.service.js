@@ -10,7 +10,7 @@ class AuthService {
     async signup(data) {
         const exsitEmail = await userModel.findOne({ email: data.email });
         if (exsitEmail)
-            ErrorMessage.emailExsitError();
+            throw ErrorMessage.emailExsitError();
         const user = await userModel.create(data);
         return user;
     }
@@ -18,7 +18,7 @@ class AuthService {
     async login(data) {
         const user = await userModel.findOne({ email: data.email, password: data.password });
         if (!user)
-            ErrorMessage.loginError();
+            throw ErrorMessage.loginError();
         const accessToken = generateToken({
             payload: {
                 _id: user?._id,
@@ -45,7 +45,7 @@ class AuthService {
     async forgetPassword(emailValue) {
         const exsitEmail = await userModel.findOne({ email: emailValue });
         if (!exsitEmail)
-            ErrorMessage.notFoundEmailError();
+            throw ErrorMessage.notFoundEmailError();
         const otp = generateOTP();
         const addOtp = await setRecord(otpTemplateWtihEmail(emailValue), otp, 4 * 60);
         // const getOtp = await getRecord(otpTemplateWtihEmail(email))
@@ -60,7 +60,7 @@ class AuthService {
     async resetPassword(data) {
         const exsitEmail = await userModel.findOne({ email: data.email });
         if (!exsitEmail)
-            ErrorMessage.notFoundEmailError();
+            throw ErrorMessage.notFoundEmailError();
         const getOtp = await getRecord(otpTemplateWtihEmail(data.email));
         if (String(getOtp) !== String(data.otp))
             ErrorMessage.invalidOtpError();

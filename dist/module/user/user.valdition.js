@@ -3,7 +3,6 @@ import { GenderEnum } from "../../common/enum/gender.enum.js";
 import { ProviderEnum } from "../../common/enum/provider.enum.js";
 import { StatusAccountEnum } from "../../common/enum/status-account.enum.js";
 import { UserRoleEnum } from "../../common/enum/user-role.enum.js";
-
 // UPDATE PROFILE SCHEMA
 export const updateProfileSchema = {
     body: z.object({

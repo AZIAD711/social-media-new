@@ -17,5 +17,9 @@ class ErrorMessage {
     invalidOtpError() {
         throw new Error("INVALID OTP !");
     }
+    // USER NOT FOUND 
+    userNotFoundError() {
+        throw new Error("USER NOT FOUND !");
+    }
 }
 export default new ErrorMessage();
