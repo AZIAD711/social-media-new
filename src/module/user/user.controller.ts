@@ -35,3 +35,20 @@ export const updateProfileController = async (request:Request, response:Response
         })
     }
 }
+// DELETE PROFILE
+export const deleteProfileController = async (request:Request, response:Response) => {
+    try {
+        const { user } = request as UserRequest;
+       const userData = await userService.deleteProfile(user.id);
+       console.log("request.user =", (request as UserRequest).user);
+        return response.status(200).json({
+            messsage:`Account of ${userData.firstName} is deleted `,
+            data : userData
+        })
+    } catch (error) {
+        console.log("❌ ERROR IN DELETE PROFILE CONTROLLER : ", error)
+        return response.status(500).json({
+            errorMessage:"Internal Server Error !"
+        })
+    }
+}

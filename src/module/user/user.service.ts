@@ -17,5 +17,11 @@ class UserService {
         if (!user) throw ErrorMessage.userNotFoundError();
         return user
     }
+    // DELETE PROFILE 
+    async deleteProfile(userId: string | Types.ObjectId): Promise<HydratedDocument<IUser>> {
+        const user = await userModel.findByIdAndDelete(userId);
+        if (!user) throw ErrorMessage.userNotFoundError();
+        return user;
+    }
 }
 export default new UserService()
