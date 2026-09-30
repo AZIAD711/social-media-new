@@ -52,3 +52,22 @@ export const getManyPostController = async (request, response) => {
         });
     }
 };
+// UPDATE POST 
+export const updatePostController = async (request, response) => {
+    try {
+        const { user } = request;
+        const data = request.body;
+        const postId = request.params.id;
+        const result = await postService.updatePost(data, postId, user.id);
+        return response.status(200).json({
+            message: "Post Updated",
+            data: result
+        });
+    }
+    catch (error) {
+        console.log("❌ ERROR IN UPDATE POST CONTROLLER : ", error);
+        return response.status(500).json({
+            errorMessage: "Internal Server Error !"
+        });
+    }
+};

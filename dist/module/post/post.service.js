@@ -23,9 +23,16 @@ class PostService {
             throw ErrorMessage.postNotFoundError();
         return post;
     }
-    // GET ONE POST 
+    // GET MANY POST 
     async getManyPost(userId) {
         const post = await postModel.find({ ownerId: userId });
+        if (!post)
+            throw ErrorMessage.postNotFoundError();
+        return post;
+    }
+    // UPDATE POST 
+    async updatePost(data, postId, userId) {
+        const post = await postModel.findOneAndUpdate({ _id: postId, ownerId: userId }, { $set: data }, { new: true, runValidators: true });
         if (!post)
             throw ErrorMessage.postNotFoundError();
         return post;
