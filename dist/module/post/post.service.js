@@ -23,5 +23,12 @@ class PostService {
             throw ErrorMessage.postNotFoundError();
         return post;
     }
+    // GET ONE POST 
+    async getManyPost(userId) {
+        const post = await postModel.find({ ownerId: userId });
+        if (!post)
+            throw ErrorMessage.postNotFoundError();
+        return post;
+    }
 }
 export default new PostService();

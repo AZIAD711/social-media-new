@@ -18,8 +18,14 @@ class PostService {
         return post
     }
     // GET ONE POST 
-    async getOnePost(postId: string | Types.ObjectId,userId: string | Types.ObjectId,): Promise<HydratedDocument<IPost>> {
+    async getOnePost(postId: string | Types.ObjectId,userId: string | Types.ObjectId): Promise<HydratedDocument<IPost>> {
         const post : HydratedDocument<IPost> | null = await postModel.findOne({ownerId:userId,_id:postId}) 
+        if(!post) throw ErrorMessage.postNotFoundError()
+        return post
+    }
+    // GET ONE POST 
+    async getManyPost(userId: string | Types.ObjectId): Promise<HydratedDocument<IPost>[]> {
+        const post : HydratedDocument<IPost>[] | null = await postModel.find({ownerId:userId}) 
         if(!post) throw ErrorMessage.postNotFoundError()
         return post
     }

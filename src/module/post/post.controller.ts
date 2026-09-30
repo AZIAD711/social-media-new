@@ -25,11 +25,27 @@ export const getOnePostController = async (request:Request, response:Response) =
         const postId = request.params.id as string
        const result = await postService.getOnePost(postId,user.id);
         return response.status(200).json({
-            message : "Post Getted",
+            message : "One Post Getted",
             data : result
         })
     } catch (error) {
         console.log("❌ ERROR IN GET ONE POST CONTROLLER : ", error)
+        return response.status(500).json({
+            errorMessage:"Internal Server Error !"
+        })
+    }
+}
+// GET MANY POST
+export const getManyPostController = async (request:Request, response:Response) => {
+    try {
+        const { user } = request as UserRequest;
+       const result = await postService.getManyPost(user.id);
+        return response.status(200).json({
+            message : "Many Posts Getted",
+            data : result
+        })
+    } catch (error) {
+        console.log("❌ ERROR IN GET MANY POST CONTROLLER : ", error)
         return response.status(500).json({
             errorMessage:"Internal Server Error !"
         })
