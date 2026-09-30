@@ -25,6 +25,10 @@ class ErrorMessage {
     duplicateTitlePostError():never{
         throw new Error("TITLE OF POST DUPLICATED ! ") 
     }
+    // POST NOT FOUND 
+    postNotFoundError():never{
+        throw new Error("POST NOT FOUND !")
+    }
 
 }
 export default new ErrorMessage()

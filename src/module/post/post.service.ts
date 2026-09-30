@@ -2,7 +2,6 @@ import { HydratedDocument, Types } from "mongoose";
 import ErrorMessage from '../../common/error/error.js'
 import { IPost } from "../../common/interface/post.interface.js";
 import postModel from "../../model/post.model.js";
-
 class PostService {
     constructor() { }
     // CREATE POST 
@@ -16,6 +15,12 @@ class PostService {
             image: postData.image,
             ownerId: userId
         })
+        return post
+    }
+    // GET ONE POST 
+    async getOnePost(postId: string | Types.ObjectId,userId: string | Types.ObjectId,): Promise<HydratedDocument<IPost>> {
+        const post : HydratedDocument<IPost> | null = await postModel.findOne({ownerId:userId,_id:postId}) 
+        if(!post) throw ErrorMessage.postNotFoundError()
         return post
     }
 }

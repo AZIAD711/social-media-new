@@ -21,5 +21,13 @@ class ErrorMessage {
     userNotFoundError() {
         throw new Error("USER NOT FOUND !");
     }
+    // DUBLICATE TITLE OF POST 
+    duplicateTitlePostError() {
+        throw new Error("TITLE OF POST DUPLICATED ! ");
+    }
+    // POST NOT FOUND 
+    postNotFoundError() {
+        throw new Error("POST NOT FOUND !");
+    }
 }
 export default new ErrorMessage();

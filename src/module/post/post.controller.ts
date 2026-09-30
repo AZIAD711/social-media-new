@@ -6,13 +6,30 @@ export const createPostController = async (request:Request, response:Response) =
     try {
         const { user } = request as UserRequest;
         const data = request.body
-       const userData = await postService.createPost(data,user.id);
+       const result = await postService.createPost(data,user.id);
         return response.status(201).json({
             message : "Post Created",
-            data : userData
+            data : result
         })
     } catch (error) {
         console.log("❌ ERROR IN CREATE POST CONTROLLER : ", error)
+        return response.status(500).json({
+            errorMessage:"Internal Server Error !"
+        })
+    }
+}
+// GET ONE POST
+export const getOnePostController = async (request:Request, response:Response) => {
+    try {
+        const { user } = request as UserRequest;
+        const postId = request.params.id as string
+       const result = await postService.getOnePost(postId,user.id);
+        return response.status(200).json({
+            message : "Post Getted",
+            data : result
+        })
+    } catch (error) {
+        console.log("❌ ERROR IN GET ONE POST CONTROLLER : ", error)
         return response.status(500).json({
             errorMessage:"Internal Server Error !"
         })
