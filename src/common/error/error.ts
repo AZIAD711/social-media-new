@@ -6,20 +6,24 @@ class ErrorMessage {
         throw new Error("EMAIL IS INVALID")
     }
     // LOGIN ERROR 
-    loginError(){
+    loginError():never{
         throw new Error("EMAIL OR PASSWORD IS INVALID ! ")
     }
     // NOT FOUND EMAIL 
-    notFoundEmailError(){
+    notFoundEmailError():never{
          throw new Error("EMAIL NOT FOUND ! ")
     }
     // INVALID OTP
-    invalidOtpError(){
+    invalidOtpError():never{
        throw new Error("INVALID OTP !") 
     }
     // USER NOT FOUND 
-    userNotFoundError(){
+    userNotFoundError():never{
        throw new Error("USER NOT FOUND !") 
+    }
+    // DUBLICATE TITLE OF POST 
+    duplicateTitlePostError():never{
+        throw new Error("TITLE OF POST DUPLICATED ! ") 
     }
 
 }

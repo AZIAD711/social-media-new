@@ -1,4 +1,4 @@
-import { model, Schema } from "mongoose";
+import { model, Schema, Types } from "mongoose";
 import { ReactEnum } from "../common/enum/react.enum.js";
 import { IPost } from "../common/interface/post.interface.js";
 
@@ -32,6 +32,12 @@ const postSchema = new Schema(
         type : String,
         enum : Object.values(ReactEnum)
     },
+    // OWNER ID 
+    ownerId : {
+        type : Types.ObjectId,
+        ref:"User",
+        require:true
+    }
 
   },
   {
