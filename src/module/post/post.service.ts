@@ -44,5 +44,11 @@ class PostService {
         if (!post) throw ErrorMessage.postNotFoundError();
         return post;
     }
+    // DELETE POST 
+    async deletePost(postId: string | Types.ObjectId, userId: string | Types.ObjectId): Promise<HydratedDocument<IPost>> {
+        const post: HydratedDocument<IPost> | null = await postModel.findOneAndDelete({ ownerId: userId, _id: postId })
+        if (!post) throw ErrorMessage.postNotFoundError()
+        return post
+    }
 }
 export default new PostService()

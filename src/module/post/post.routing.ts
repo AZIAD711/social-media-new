@@ -1,4 +1,4 @@
-import { createPostController, getOnePostController ,getManyPostController,updatePostController} from "./post.controller.js"
+import { createPostController, getOnePostController ,getManyPostController,updatePostController,deletePostController} from "./post.controller.js"
 import express from "express"
 import { schemaValidate } from "../../common/middleware/schema.middleware.js"
 import { authentication, authorization } from "../../common/middleware/auth.middleware.js"
@@ -9,4 +9,5 @@ postRouter.post("/add", schemaValidate(createPostSchema), authentication(), auth
 postRouter.get("/get/one/:id", schemaValidate(getOnePostSchema), authentication(), authorization(UserRoleEnum.USER, UserRoleEnum.ADMIN), getOnePostController)
 postRouter.get("/get/many", authentication(), authorization(UserRoleEnum.USER, UserRoleEnum.ADMIN), getManyPostController)
 postRouter.put("/update/:id", schemaValidate(updatePostSchema),authentication(), authorization(UserRoleEnum.USER, UserRoleEnum.ADMIN), updatePostController)
+postRouter.delete("/delete/:id",schemaValidate(getOnePostSchema),authentication(), authorization(UserRoleEnum.USER, UserRoleEnum.ADMIN), deletePostController)
 export default postRouter

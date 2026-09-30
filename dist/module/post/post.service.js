@@ -37,5 +37,12 @@ class PostService {
             throw ErrorMessage.postNotFoundError();
         return post;
     }
+    // DELETE POST 
+    async deletePost(postId, userId) {
+        const post = await postModel.findOneAndDelete({ ownerId: userId, _id: postId });
+        if (!post)
+            throw ErrorMessage.postNotFoundError();
+        return post;
+    }
 }
 export default new PostService();

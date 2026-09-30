@@ -71,3 +71,21 @@ export const updatePostController = async (request, response) => {
         });
     }
 };
+// DELETE POST 
+export const deletePostController = async (request, response) => {
+    try {
+        const { user } = request;
+        const postId = request.params.id;
+        const result = await postService.deletePost(postId, user.id);
+        return response.status(200).json({
+            message: "Post Deleted !",
+            data: result
+        });
+    }
+    catch (error) {
+        console.log("❌ ERROR IN DELETE POST CONTROLLER : ", error);
+        return response.status(500).json({
+            errorMessage: "Internal Server Error !"
+        });
+    }
+};
