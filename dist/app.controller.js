@@ -5,6 +5,7 @@ import { redisConnection } from "./database/redis.db.js";
 import authRouter from "./module/auth/auth.routing.js";
 import userRouter from "./module/user/user.routing.js";
 import postRouter from "./module/post/post.routing.js";
+import commentRouter from "./module/comment/comment.routing.js";
 // import { redisConnection } from "./src/database/redis-connection.js"
 // import cors from "cors"
 // import { createRateLimiter } from "./src/common/middleware/rate-limiter.js"
@@ -38,6 +39,7 @@ export const app = () => {
     router.use("/auth", authRouter);
     router.use("/user", userRouter);
     router.use("/post", postRouter);
+    router.use("/comment", commentRouter);
     return router;
 };
 export default app;

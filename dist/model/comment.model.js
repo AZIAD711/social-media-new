@@ -2,7 +2,7 @@ import { model, Schema, Types } from "mongoose";
 // COMMENT SCHEMA
 const commentSchema = new Schema({
     // CONTENT 
-    conent: {
+    content: {
         type: String,
         minLength: 2,
         maxLength: 200,

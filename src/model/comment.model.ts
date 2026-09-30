@@ -6,7 +6,7 @@ import { IComment } from "../common/interface/comment.interface.js";
 const commentSchema = new Schema(
   {
     // CONTENT 
-    conent : {
+    content : {
         type : String,
         minLength:2,
         maxLength:200,

@@ -1,4 +1,3 @@
-// GOLBAL ERROR
 class ErrorMessage {
     constructor() {}
     // SHOW EMAIL IS EXSIT
@@ -28,6 +27,10 @@ class ErrorMessage {
     // POST NOT FOUND 
     postNotFoundError():never{
         throw new Error("POST NOT FOUND !")
+    }
+    // COMMENT NOT FOUND 
+    commentNotFoundError():never{
+        throw new Error("COMMENT NOT FOUND !")
     }
 
 }
