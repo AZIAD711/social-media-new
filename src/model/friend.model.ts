@@ -19,8 +19,9 @@ const friendSchema = new Schema(
     },
     // STATUS
     statusOfRequest : {
-        type : string,
-        enum:Object.values(statusOfRequestEnnum)
+        type : String,
+        enum:Object.values(statusOfRequestEnnum),
+        default:statusOfRequestEnnum.PENDING
     },
 
   },
