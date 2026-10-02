@@ -49,3 +49,24 @@ export const showRequestController = async (request: Request, response: Response
         });
     }
 };
+// CHANGE STATUS OF REQUEST
+export const changeStatusOfRequestController = async (request: Request, response: Response) => {
+    try {
+        const { user } = request as UserRequest;
+        const friendId = request.params.id as string;
+        const { status } = request.body;
+        const result = await friendService.changeStatusOfRequest(friendId, status);
+
+        return response.status(201).json({
+            message: `Status Updated Successfully!`,
+            data: result
+        });
+
+    } catch (error) {
+        console.log("❌ ERROR IN CHANGE STATUS OF REQUEST CONTROLLER : ", error);
+
+        return response.status(500).json({
+            errorMessage: "Internal Server Error!"
+        });
+    }
+};

@@ -3,6 +3,7 @@ import ErrorMessage from '../../common/error/error.js'
 import { IFriend } from "../../common/interface/friend.interface.js";
 import friendModel from "../../model/friend.model.js";
 import userModel from "../../model/user.model.js";
+import { statusOfRequestEnnum } from "../../common/enum/status-of-request.enum.js";
 class FriendService {
     constructor() { }
     // SEND REQUEST 
@@ -19,6 +20,14 @@ class FriendService {
     async showRequest(userId: string | Types.ObjectId): Promise<HydratedDocument<IFriend>[]> {
         const friends = await friendModel.find({ recieverId: userId });
         return friends;
+    }
+    // CHANGE STATUS OF REQUEST 
+    async changeStatusOfRequest(friendId: string | Types.ObjectId, status: string): Promise<HydratedDocument<IFriend>> {
+        const friend = await friendModel.findById(friendId);
+        if (!friend) throw ErrorMessage.userNotFoundError();
+        friend.statusOfRequest = status as statusOfRequestEnnum;
+        await friend.save();
+        return friend;
     }
 }
 export default new FriendService()
