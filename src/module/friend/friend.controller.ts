@@ -30,3 +30,22 @@ export const sendRequestController = async (request: Request, response: Response
         });
     }
 };
+// SHOW REQUEST
+export const showRequestController = async (request: Request, response: Response) => {
+    try {
+        const { user } = request as UserRequest;
+        const result = await friendService.showRequest(user.id);
+
+        return response.status(201).json({
+            message: `Getted All Requests Successfully!`,
+            data: result
+        });
+
+    } catch (error) {
+        console.log("❌ ERROR IN SHOW REQUEST CONTROLLER : ", error);
+
+        return response.status(500).json({
+            errorMessage: "Internal Server Error!"
+        });
+    }
+};

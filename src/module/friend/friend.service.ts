@@ -15,5 +15,10 @@ class FriendService {
         })
         return friend
     }
+    // SHOW REQUEST 
+    async showRequest(userId: string | Types.ObjectId): Promise<HydratedDocument<IFriend>[]> {
+        const friends = await friendModel.find({ recieverId: userId });
+        return friends;
+    }
 }
 export default new FriendService()
